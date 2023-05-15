@@ -1,0 +1,4 @@
+---
+features:
+  - |
+    Added proper inclusion of glfw and glad for easy use with cmake
