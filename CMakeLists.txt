@@ -18,6 +18,7 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 
 set(SOURCES
     src/main.cpp
+    src/Logger.cpp
 )
 
 add_executable(Fallen ${SOURCES})

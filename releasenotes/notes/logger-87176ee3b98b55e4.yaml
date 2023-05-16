@@ -1,0 +1,7 @@
+---
+features:
+  - |
+    Added easy logger defined with macros for easy use.
+other:
+  - |
+    Added template for Window class for application.

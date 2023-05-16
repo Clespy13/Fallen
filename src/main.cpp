@@ -3,8 +3,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Logger.h"
+
 int main() {
     GLFWwindow* window;
+
+    TRACE("Works %i == 42: %i", 42, 42 == 42);
+    INFO("Works %i == 42: %i", 42, 42 == 42);
+    WARN("Works %i == 42.0: %i", 42, 42 == 42);
+    ERROR("Works %i == 42: %i", 41, 41 == 42);
 
     /* Initialize the library */
     if (!glfwInit())
