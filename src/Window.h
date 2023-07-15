@@ -1,19 +1,24 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+struct GLFWwindow {};
 
 class Window {
     public:
-        Window(char* title, int width, int height);
+        Window();
         ~Window();
 
-        void CreateWindow();
+        void CreateWindow(const char* title, int width, int height);
         void DestroyWindow();
 
+        GLFWwindow* getWindow() { return m_Window; }
+        int getWidth() { return m_Width; }
+        int getHeight() { return m_Height; }
+
     private:
+        GLFWwindow* m_Window;
+
         int m_Width;
         int m_Height;
-        char* m_Title;
+        const char* m_Title;
 
 };
