@@ -28,3 +28,27 @@ void FALog(LogLevel level, const char* message, ...) {
 
     printf("\033[%sm%s\033[0m", colors[level], out);
 }
+
+void FAAssert(bool condition, const char* message, ...) {
+    if (!condition) {
+        const int maxMsgLen = 32000;
+        char output[maxMsgLen];
+        memset(output, 0, sizeof(output));
+
+        va_list arg;
+        va_start(arg, message);
+        const int status = vsnprintf(output, maxMsgLen, message, arg);
+        va_end(arg);
+
+        if (status < 0)
+            FALog(LogLevelError, "String formatting error");
+
+        char out[maxMsgLen];
+
+        sprintf(out, "[ASSERTION ERROR]: %s\n", output);
+
+        const char* color = "0;41";
+
+        printf("\033[%sm%s\033[0m", color, out);
+    }
+}

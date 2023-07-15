@@ -13,6 +13,7 @@ typedef enum LogLevel {
 } LogLevel;
 
 void FALog(LogLevel level, const char* message, ...);
+void FAAssert(bool condition, const char* message, ...);
 
 #ifndef TRACE
 #ifdef FA_TRACE
@@ -45,4 +46,6 @@ void FALog(LogLevel level, const char* message, ...);
 #define ERROR(message, ...)
 #endif
 #endif
+
+#define ASSERT(condition, message, ...) FAAssert(condition, message, ##__VA_ARGS__)
 
