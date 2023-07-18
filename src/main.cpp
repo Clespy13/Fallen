@@ -16,27 +16,22 @@ int main() {
      */
 
     Application app;
-
-
-    //window.SetCallbacks();
-
-    INFO("Works on windows");
-
+    app.Run();
     /* Loop until the user closes the window */ 
-    while (!glfwWindowShouldClose(app.GetWindow()->getWindow()))
-    {
-        glClearColor(0.2f, 0.2f, 0.2f, 0.0f );
+    //while (!glfwWindowShouldClose(app.GetWindow()->getWindow()))
+    //{
+        //glClearColor(0.2f, 0.2f, 0.2f, 0.0f );
 
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        //glClear(GL_COLOR_BUFFER_BIT);
 
         /* Swap front and back buffers */
-        glfwSwapBuffers(app.GetWindow()->getWindow());
+        //glfwSwapBuffers(app.GetWindow()->getWindow());
 
         /* Poll for and process events */
-        glfwPollEvents();
-    }
+        //glfwPollEvents();
+    //}
 
-    glfwTerminate();
+    //glfwTerminate();
     return 0;
 }

@@ -14,6 +14,8 @@ class Window {
         void CreateWindow();
         void DestroyWindow();
 
+        void OnUpdate();
+
         inline void SetEventCallback(void (*callback)(Event&))
         {
             m_Data.EventCallback = callback;

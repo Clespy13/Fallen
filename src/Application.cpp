@@ -1,12 +1,12 @@
 #include "Application.h"
 
 #include "Logger.h"
-#include "Helpers.h"
 
 #include "Events/MouseEvent.h"
 
 Application* Application::s_Instance = nullptr;
 bool Application::m_Running = true;
+LayerStack Application::m_LayerStack;
 
 Application::Application() {
     s_Instance = this;
@@ -21,24 +21,28 @@ Application::~Application() {
 
 void Application::Run() {
     while (m_Running) {
-        //for (Layer* layer : m_LayerStack)
-          //  layer->OnUpdate();
+        for (Layer* layer : m_LayerStack)
+            layer->OnUpdate();
 
-//        m_Window->OnUpdate();
+        m_Window->OnUpdate();
     }
 }
 
 void Application::OnEvent(Event& event) {
     EventDispatcher dispatcher(event);
     dispatcher.dispatch<WindowCloseEvent>(Application::OnWindowClose);
-    // dispatcher needed
-    // then send to all layers in the stack
+
+    for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it) {
+        if (event.m_Handled)
+            break;
+        (*it)->OnEvent(event);
+    }
 }
-/*
+
 void Application::PushLayer(Layer* layer) {
     m_LayerStack.PushLayer(layer);
     layer->OnAttach();
-}*/
+}
 
 bool Application::OnWindowClose(WindowCloseEvent& event) {
     m_Running = false;

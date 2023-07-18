@@ -117,3 +117,7 @@ void Window::CreateWindow() {
 void Window::DestroyWindow() {
 }
 
+void Window::OnUpdate() {
+    glfwPollEvents();
+    glfwSwapBuffers(m_Window);
+}

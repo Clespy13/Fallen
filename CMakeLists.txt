@@ -34,6 +34,7 @@ set(SOURCES
     src/Logger.cpp
     src/Window.cpp
     src/Application.cpp
+    src/LayerStack.cpp
 )
 
 add_executable(Fallen ${SOURCES})
