@@ -33,6 +33,7 @@ set(SOURCES
     src/main.cpp
     src/Logger.cpp
     src/Window.cpp
+    src/Application.cpp
 )
 
 add_executable(Fallen ${SOURCES})

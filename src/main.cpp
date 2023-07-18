@@ -1,21 +1,29 @@
-
 //#define GLFW_INCLUDE_NONE
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "Logger.h"
 #include "Window.h"
+#include "Application.h"
 
 int main() {
-    Window window;
+    /*
+     * Application is the whole thing
+     * Contains layers (GUI, Game, etc)
+     * GUI is just rectangles that when clicked have different events
+     * Application has main run loop
+     * Game has separate loop (layer loop)
+     */
 
-    window.CreateWindow("Fallen", 640, 480);
+    Application app;
+
+
     //window.SetCallbacks();
 
     INFO("Works on windows");
 
     /* Loop until the user closes the window */ 
-    while (!glfwWindowShouldClose(window.getWindow()))
+    while (!glfwWindowShouldClose(app.GetWindow()->getWindow()))
     {
         glClearColor(0.2f, 0.2f, 0.2f, 0.0f );
 
@@ -23,7 +31,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
 
         /* Swap front and back buffers */
-        glfwSwapBuffers(window.getWindow());
+        glfwSwapBuffers(app.GetWindow()->getWindow());
 
         /* Poll for and process events */
         glfwPollEvents();
