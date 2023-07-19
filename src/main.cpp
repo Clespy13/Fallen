@@ -5,6 +5,28 @@
 #include "Logger.h"
 #include "Window.h"
 #include "Application.h"
+#include "Layer.h"
+#include "Events/MouseEvent.h"
+
+class TestLayer : public Layer {
+    public:
+        TestLayer() : Layer("Test") {}
+        ~TestLayer() {}
+
+        void OnAttach() override {}
+        void OnDetach() override {}
+        void OnUpdate() override {}
+        void OnEvent(Event& event) override {
+            EventDispatcher dispatcher(event);
+            dispatcher.dispatch<MouseMovedEvent>(TestLayer::Mouse);
+        }
+
+        static bool Mouse(MouseMovedEvent& event) {
+            INFO("Mouse moved: (%f, %f)", event.getX(), event.getY());
+            return false;
+        }
+
+};
 
 int main() {
     /*
@@ -16,6 +38,9 @@ int main() {
      */
 
     Application app;
+
+    app.PushLayer(new TestLayer());
+
     app.Run();
     /* Loop until the user closes the window */ 
     //while (!glfwWindowShouldClose(app.GetWindow()->getWindow()))
