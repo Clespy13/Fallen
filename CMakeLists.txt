@@ -35,6 +35,7 @@ set(SOURCES
     src/Window.cpp
     src/Application.cpp
     src/LayerStack.cpp
+    src/UI/Button.cpp
 )
 
 add_executable(Fallen ${SOURCES})

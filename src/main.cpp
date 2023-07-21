@@ -7,24 +7,35 @@
 #include "Application.h"
 #include "Layer.h"
 #include "Events/MouseEvent.h"
+#include "UI/Widget.h"
+#include "UI/Button.h"
 
-class TestLayer : public Layer {
+class UILayer : public Layer {
     public:
-        TestLayer() : Layer("Test") {}
-        ~TestLayer() {}
+        UILayer() : Layer("Test") {}
+        ~UILayer() {}
 
-        void OnAttach() override {}
+        void OnAttach() override {
+            b1 = new Button();
+            b2 = new Button();
+        }
         void OnDetach() override {}
-        void OnUpdate() override {}
+        void OnUpdate() override {
+            INFO("B1: %i", b1->GetID());
+            INFO("B2: %i", b2->GetID());
+        }
         void OnEvent(Event& event) override {
             EventDispatcher dispatcher(event);
-            dispatcher.dispatch<MouseMovedEvent>(TestLayer::Mouse);
+            dispatcher.dispatch<MouseMovedEvent>(UILayer::Mouse);
         }
 
         static bool Mouse(MouseMovedEvent& event) {
             INFO("Mouse moved: (%f, %f)", event.getX(), event.getY());
             return false;
         }
+
+        Button* b1;
+        Button* b2;
 
 };
 
@@ -39,7 +50,7 @@ int main() {
 
     Application app;
 
-    app.PushLayer(new TestLayer());
+    app.PushLayer(new UILayer());
 
     app.Run();
     /* Loop until the user closes the window */ 
