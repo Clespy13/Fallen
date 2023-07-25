@@ -6,48 +6,42 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_BUILD_TYPE Debug)
 
+set(OSBitness 32)
+if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(OSBitness 64)
+endif()
+
 cmake_policy(SET CMP0072 NEW)
 
-find_package(OpenGL REQUIRED)
+#set(CMAKE_MODULE_PATH "${Fallen_SOURCE_DIR}/cmake")
 
-include_directories(${OPENGL_INCLUDE_DIRS})
+set(FullOutputDir "${CMAKE_SOURCE_DIR}/build/bin/${CMAKE_SYSTEM_NAME}${OSBitness}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${FullOutputDir}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${FullOutputDir}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
-# STATIC stuff (Windows)
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-        set(BUILD_FOR_WIN TRUE)
-endif()
-option(STATIC_BUILD "Build a static binary." ${BUILD_FOR_WIN})
-
-if (STATIC_BUILD)
-        set(CMAKE_EXE_LINKER_FLAGS "-static")
-        set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" CONFIG)
-        set(BUILD_SHARED_LIBS OFF)
+        set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # to force generation of .lib as well
 endif()
 
-# Avoid building the tests, examples and docs
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-#set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(SOURCES
-    src/main.cpp
-    src/Logger.cpp
-    src/Window.cpp
-    src/Application.cpp
-    src/LayerStack.cpp
-    src/UI/Button.cpp
-)
+# Macro to preserve source files hierarchy in the IDE
+macro(GroupSources curdir)
+	file(GLOB children RELATIVE ${PROJECT_SOURCE_DIR}/${curdir} ${PROJECT_SOURCE_DIR}/${curdir}/*)
 
-add_executable(Fallen ${SOURCES})
+	foreach(child ${children})
+		if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/${curdir}/${child})
+			GroupSources(${curdir}/${child})
+		else()
+			string(REPLACE "/" "\\" groupname ${curdir})
+			string(REPLACE "src" "Sources" groupname ${groupname})
+			source_group(${groupname} FILES ${PROJECT_SOURCE_DIR}/${curdir}/${child})
+		endif()
+	endforeach()
+endmacro()
 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Fallen)
+add_subdirectory(Fallen)
+add_subdirectory(FeatureTester)
 
-add_subdirectory(libs/glfw)
-add_subdirectory(libs/glad)
-
-target_link_libraries(Fallen PRIVATE ${OPENGL_LIBRARIES} glfw glad)
-
-#target_include_directories(Fallen PUBLIC
-#                          "${PROJECT_BINARY_DIR}"
-#                          "${PROJECT_SOURCE_DIR}/glad"
-#                          )
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT FeatureTester)
