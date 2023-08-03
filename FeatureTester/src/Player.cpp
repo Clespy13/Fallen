@@ -19,8 +19,25 @@ void Player::OnUpdate()
 {
 	if (Input::IsKeyPressed(Key::W)) {
 		Transform& pos = GetComponent<Transform>();
+		pos.position -= glm::vec3(1.0f, 0.0f, 0.0f);
+		pos.SetPosition(pos.position);
+	}
+	
+	if (Input::IsKeyPressed(Key::A)) {
+		Transform& pos = GetComponent<Transform>();
+		pos.position -= glm::vec3(0.0f, 1.0f, 0.0f);
+		pos.SetPosition(pos.position);
+	}
+	
+	if (Input::IsKeyPressed(Key::S)) {
+		Transform& pos = GetComponent<Transform>();
 		pos.position += glm::vec3(1.0f, 0.0f, 0.0f);
 		pos.SetPosition(pos.position);
-		INFO("%f %f %f", pos.position[0], pos.position[1], pos.position[2]);
+	}
+
+	if (Input::IsKeyPressed(Key::D)) {
+		Transform& pos = GetComponent<Transform>();
+		pos.position += glm::vec3(0.0f, 1.0f, 0.0f);
+		pos.SetPosition(pos.position);
 	}
 }

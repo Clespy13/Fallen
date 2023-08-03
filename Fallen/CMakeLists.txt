@@ -30,4 +30,4 @@ target_include_directories(FallenLib PUBLIC "src" ${GLM_INCLUDE_DIRS})
 #include_directories(${GLM_INCLUDE_DIRS})
 
 #${OPENGL_LIBRARIES}
-target_link_libraries(FallenLib PRIVATE ${GLM_LIBRARY_DIRS} glfw glad glm::glm)
+target_link_libraries(FallenLib ${GLM_LIBRARY_DIRS} glfw glad glm::glm)

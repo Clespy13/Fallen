@@ -5,12 +5,12 @@
 
 int main() {
 
-    Application app;
+    Application* app = new Application();
 
-    app.PushLayer(new GameLayer());
-    app.PushLayer(new UILayer());
+    app->PushLayer(new GameLayer());
+    app->PushLayer(new UILayer());
 
-    app.Run();
+    app->Run();
 
     return 0;
 }
