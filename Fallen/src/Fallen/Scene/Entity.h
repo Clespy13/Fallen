@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-
+#include <algorithm>
 
 class Entity {
     public:
@@ -36,7 +36,7 @@ class Entity {
 	}
 
 	template <typename T>
-	T& GetComponent() {
+	T GetComponent() {
 		if (HasComponent<T>()) {
 			auto it = std::find_if(m_Components.begin(), m_Components.end(), [](std::shared_ptr<Component> comp)
 				{ return comp->Type() == T().Type(); });

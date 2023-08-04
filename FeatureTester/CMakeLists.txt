@@ -12,8 +12,8 @@ add_executable(FeatureTester ${SOURCES} ${HEADERS} ${VERTEX} ${FRAGMENT})
 # Run macro
 GroupSources(src)
 
-target_link_libraries(FeatureTester FallenLib glfw glad)
-
+target_link_libraries(FeatureTester FallenLib)
+add_compile_options(-fPIC)
 #add_compile_definitions(GLAD_GLAPI_EXPORT)
 add_compile_definitions(GLFW_INCLUDE_NONE)
 

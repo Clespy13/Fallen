@@ -3,7 +3,7 @@
 
 // Default keybindings of glfw3.h
 
-using KeyCode = uint16_t;
+using KeyCode = int;
 
 namespace Key {
 

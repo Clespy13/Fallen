@@ -45,7 +45,7 @@ void Renderer2D::DrawQuad(glm::vec3 position, glm::vec3 rotation, glm::vec4 colo
 {
 	transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
 	m_ShaderProgram->Use();
-	m_ShaderProgram->SetMat4((std::string)"transform", transform);
+	m_ShaderProgram->SetMat4((std::string&)"transform", transform);
 
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 3);

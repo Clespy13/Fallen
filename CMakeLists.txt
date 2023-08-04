@@ -11,7 +11,6 @@ if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(OSBitness 64)
 endif()
 
-cmake_policy(SET CMP0072 NEW)
 
 #set(CMAKE_MODULE_PATH "${Fallen_SOURCE_DIR}/cmake")
 
@@ -40,6 +39,8 @@ macro(GroupSources curdir)
 		endif()
 	endforeach()
 endmacro()
+
+add_compile_options(-fPIC)
 
 add_subdirectory(Fallen)
 add_subdirectory(FeatureTester)
