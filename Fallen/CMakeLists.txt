@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.10)
 project(FallenLib VERSION 0.1.0)
 
 
-#find_package(OpenGL REQUIRED)
-#include_directories(${OPENGL_INCLUDE_DIRS})
+find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE_DIRS})
 
 #add_subdirectory(libs/glm)
 add_subdirectory(libs/glfw)
@@ -29,5 +29,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 target_include_directories(FallenLib PUBLIC "src" ${GLM_INCLUDE_DIRS})
 #include_directories(${GLM_INCLUDE_DIRS})
 
+#add_compile_definitions(GLAD_GLAPI_EXPORT GLAD_GLAPI_EXPORT_BUILD)
+add_compile_definitions(GLFW_INCLUDE_NONE)
 #${OPENGL_LIBRARIES}
-target_link_libraries(FallenLib ${GLM_LIBRARY_DIRS} glfw glad glm::glm)
+target_link_libraries(FallenLib PUBLIC ${GLM_LIBRARY_DIRS} glfw glad glm::glm)

@@ -32,9 +32,8 @@ void Window::CreateWindow() {
     }
 
     glfwMakeContextCurrent(m_Window);
-
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        ERROR("Couldn't init glad!");
+        ERROR("Failed to initialize GLAD");
 
     glViewport(0, 0, m_Width, m_Height);
 

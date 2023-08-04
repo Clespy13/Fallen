@@ -5,8 +5,9 @@
 
 #include <Fallen/Logger.h>
 #include <Fallen/Renderer/Renderer2D.h>
+#include <Fallen/Renderer/Renderer.h>
+#include <Fallen/Application.h>
 #include "Player.h"
-
 
 GameLayer::GameLayer()
 {
@@ -31,13 +32,8 @@ void GameLayer::OnDetach()
 
 void GameLayer::OnUpdate()
 {
-	if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	Renderer::ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	Renderer::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for (auto entity : m_Entities)
 	{

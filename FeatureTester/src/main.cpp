@@ -7,6 +7,7 @@ int main() {
 
     Application* app = new Application();
 
+
     app->PushLayer(new GameLayer());
     app->PushLayer(new UILayer());
 

@@ -14,4 +14,7 @@ GroupSources(src)
 
 target_link_libraries(FeatureTester FallenLib glfw glad)
 
+#add_compile_definitions(GLAD_GLAPI_EXPORT)
+add_compile_definitions(GLFW_INCLUDE_NONE)
+
 target_include_directories(FeatureTester PUBLIC .)
