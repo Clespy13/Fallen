@@ -30,20 +30,24 @@ void GameLayer::OnDetach()
 
 }
 
-void GameLayer::OnUpdate()
+void GameLayer::OnUpdate(TimeStep ts)
 {
 	Renderer::ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	Renderer::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	Renderer2D::Begin();
+
 	for (auto entity : m_Entities)
 	{
-		entity->OnUpdate();
+		entity->OnUpdate(ts);
 		if (entity->HasComponent<QuadSprite>()) {
-			Transform trans = entity->GetComponent<Transform>();
-			QuadSprite sprite = entity->GetComponent<QuadSprite>();
+			Transform& trans = entity->GetComponent<Transform>();
+			QuadSprite& sprite = entity->GetComponent<QuadSprite>();
 			Renderer2D::DrawQuad(trans.position, trans.rotation, sprite.color);
 		}
 	}
+
+	Renderer2D::End();
 }
 
 void GameLayer::OnEvent(Event& event)

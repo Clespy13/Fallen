@@ -1,5 +1,6 @@
 #include <Fallen/Layer.h>
 #include <Fallen/Scene/Entity.h>
+#include <Fallen/Time.h>
 
 #include <vector>
 
@@ -11,7 +12,7 @@ class GameLayer : public Layer
 
     void OnAttach() override;
     void OnDetach() override;
-    void OnUpdate() override;
+    void OnUpdate(TimeStep ts) override;
     void OnEvent(Event& event) override;
 
     private:

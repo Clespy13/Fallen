@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Fallen/Scene/Entity.h>
+#include <Fallen/Time.h>
 
 class Player : public Entity
 {
@@ -8,7 +9,7 @@ class Player : public Entity
 	Player();
 	~Player();
 
-	void OnUpdate();
+	void OnUpdate(TimeStep ts);
 
 	private:
 	int m_Health;

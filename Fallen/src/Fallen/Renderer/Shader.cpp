@@ -22,7 +22,6 @@ Shader::Shader(const char* vertexShaderPath, const char* fragmentShaderPath)
     {
         // open files
         vShaderFile.open(vertexShaderPath);
-        INFO("%s", vertexShaderPath);
         fShaderFile.open(fragmentShaderPath);
 
         std::stringstream vShaderStream, fShaderStream;
@@ -82,19 +81,24 @@ void Shader::Use()
     glUseProgram(m_ID);
 }
 
-void Shader::SetBool(std::string &name, bool value)
+void Shader::SetBool(std::string& name, bool value)
 {
     glUniform1i(glGetUniformLocation(m_ID, name.c_str()), (int)value);
 }
 
-void Shader::SetInt(std::string &name, int value)
+void Shader::SetInt(std::string& name, int value)
 {
     glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
 }
 
-void Shader::SetFloat(std::string &name, float value)
+void Shader::SetFloat(std::string& name, float value)
 {
     glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
+}
+
+void Shader::SetFloat3(std::string& name, glm::vec3 value)
+{
+    glUniform3f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y, value.z);
 }
 
 void Shader::SetMat2(std::string& name, glm::mat2 value)

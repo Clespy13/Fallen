@@ -16,6 +16,7 @@ class Shader
         void SetBool(std::string& name, bool value);
         void SetInt(std::string& name, int value);
         void SetFloat(std::string& name, float value);
+        void SetFloat3(std::string& name, glm::vec3 value);
         void SetMat2(std::string& name, glm::mat2 value);
         void SetMat3(std::string& name, glm::mat3 value);
         void SetMat4(std::string& name, glm::mat4 value);

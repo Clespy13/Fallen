@@ -16,7 +16,7 @@ void UILayer::OnDetach()
 {
 }
 
-void UILayer::OnUpdate()
+void UILayer::OnUpdate(TimeStep ts)
 {
 }
 

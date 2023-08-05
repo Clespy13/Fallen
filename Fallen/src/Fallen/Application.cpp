@@ -8,6 +8,7 @@ Application* Application::s_Instance = nullptr;
 bool Application::m_Running = true;
 LayerStack Application::m_LayerStack;
 
+
 Application::Application() {
     s_Instance = this;
 
@@ -21,8 +22,13 @@ Application::~Application() {
 
 void Application::Run() {
     while (m_Running) {
+        
+        double time = Time::GetTime();
+        TimeStep timeStep = time - m_LastFrameTime;
+        m_LastFrameTime = time;
+
         for (Layer* layer : m_LayerStack)
-            layer->OnUpdate();
+            layer->OnUpdate(timeStep);
 
         m_Window->OnUpdate();
     }

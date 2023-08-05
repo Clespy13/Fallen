@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Components.h"
+#include "Fallen/Time.h"
 
 #include <string>
 #include <vector>
@@ -13,7 +14,7 @@ class Entity {
 
 	virtual ~Entity() = default;
 
-	virtual void OnUpdate() {};
+	virtual void OnUpdate(TimeStep ts) {};
 
 	template<typename T, typename... Args>
 	void AddComponent(Args&&... args) {
@@ -36,7 +37,7 @@ class Entity {
 	}
 
 	template <typename T>
-	T GetComponent() {
+	T& GetComponent() {
 		if (HasComponent<T>()) {
 			auto it = std::find_if(m_Components.begin(), m_Components.end(), [](std::shared_ptr<Component> comp)
 				{ return comp->Type() == T().Type(); });

@@ -5,6 +5,7 @@
 #include "Events/KeyEvent.h"
 #include "Events/WindowEvent.h"
 #include "LayerStack.h"
+#include "Time.h"
 
 class Application {
     public:
@@ -27,6 +28,7 @@ class Application {
         Window* m_Window;
         static bool m_Running;
         static LayerStack m_LayerStack;
+        double m_LastFrameTime = 0.0f;
 
         //bool OnWindowClose(WindowCloseEvent& event);
         static bool OnWindowClose(WindowCloseEvent& event);

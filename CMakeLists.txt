@@ -21,6 +21,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
         set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # to force generation of .lib as well
+else()
+	add_compile_options(-fPIC)
 endif()
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -39,8 +41,6 @@ macro(GroupSources curdir)
 		endif()
 	endforeach()
 endmacro()
-
-add_compile_options(-fPIC)
 
 add_subdirectory(Fallen)
 add_subdirectory(FeatureTester)

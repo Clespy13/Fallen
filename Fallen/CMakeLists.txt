@@ -29,7 +29,6 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 target_include_directories(FallenLib PUBLIC "src" ${GLM_INCLUDE_DIRS})
 #include_directories(${GLM_INCLUDE_DIRS})
-add_compile_options(-fPIC)
 #add_compile_definitions(GLAD_GLAPI_EXPORT GLAD_GLAPI_EXPORT_BUILD)
 add_compile_definitions(GLFW_INCLUDE_NONE)
 #${OPENGL_LIBRARIES}

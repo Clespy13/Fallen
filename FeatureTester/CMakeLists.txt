@@ -13,7 +13,7 @@ add_executable(FeatureTester ${SOURCES} ${HEADERS} ${VERTEX} ${FRAGMENT})
 GroupSources(src)
 
 target_link_libraries(FeatureTester FallenLib)
-add_compile_options(-fPIC)
+
 #add_compile_definitions(GLAD_GLAPI_EXPORT)
 add_compile_definitions(GLFW_INCLUDE_NONE)
 

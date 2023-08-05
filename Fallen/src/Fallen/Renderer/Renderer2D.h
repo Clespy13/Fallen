@@ -9,6 +9,10 @@ class Renderer2D {
 
 	static void Init();
 
+	static void Begin();
+	static void End();
+	static void Draw();
+
 	static void DrawQuad(glm::vec2 position, glm::vec2 rotation, glm::vec4 color);
 	static void DrawQuad(glm::vec3 position, glm::vec3 rotation, glm::vec4 color);
 

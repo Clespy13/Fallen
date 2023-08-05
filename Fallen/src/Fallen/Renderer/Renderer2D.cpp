@@ -4,9 +4,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/gtx/string_cast.hpp>
+
 unsigned int Renderer2D::VAO;
 Shader* Renderer2D::m_ShaderProgram;
 glm::mat4 Renderer2D::transform = glm::mat4(1.0f);
+glm::vec3& posi = glm::vec3(1.0f);
 
 void Renderer2D::Init() {
 	float vertices[] = {
@@ -36,6 +39,28 @@ void Renderer2D::Init() {
 	//m_ShaderProgram->SetMat4((std::string)"transform", transform);
 }
 
+void Renderer2D::Begin()
+{
+
+}
+
+std::string pos = "a_Pos";
+
+void Renderer2D::End()
+{
+	m_ShaderProgram->Use();
+	m_ShaderProgram->SetFloat3(pos, posi);
+	//m_ShaderProgram->SetMat4(tr, transform);
+
+	Draw();
+}
+
+void Renderer2D::Draw()
+{
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
 void Renderer2D::DrawQuad(glm::vec2 position, glm::vec2 rotation, glm::vec4 color)
 {
 	DrawQuad({ position.x, position.y, 0.0f }, { rotation.x, rotation.y, 0.0f }, color);
@@ -43,13 +68,8 @@ void Renderer2D::DrawQuad(glm::vec2 position, glm::vec2 rotation, glm::vec4 colo
 
 void Renderer2D::DrawQuad(glm::vec3 position, glm::vec3 rotation, glm::vec4 color)
 {
-	transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
-	m_ShaderProgram->Use();
-	m_ShaderProgram->SetMat4((std::string&)"transform", transform);
-
-	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-
-
-	//INFO("drawing quad pos: x: %f y: %f", position.x, position.y);
+	posi = position;
+	//INFO("x: %f", position.x);
+	//transform = glm::translate(transform, position);
+	//std::cout << glm::to_string(transform) << std::endl;
 }

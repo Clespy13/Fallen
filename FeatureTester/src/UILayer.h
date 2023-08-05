@@ -8,7 +8,7 @@ class UILayer : public Layer
 
     void OnAttach() override;
     void OnDetach() override;
-    void OnUpdate() override;
+    void OnUpdate(TimeStep ts) override;
     void OnEvent(Event& event) override;
 
     private:
