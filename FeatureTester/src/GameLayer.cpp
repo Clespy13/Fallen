@@ -43,7 +43,7 @@ void GameLayer::OnUpdate(TimeStep ts)
 		if (entity->HasComponent<QuadSprite>()) {
 			Transform& trans = entity->GetComponent<Transform>();
 			QuadSprite& sprite = entity->GetComponent<QuadSprite>();
-			Renderer2D::DrawQuad(trans.position, trans.rotation, sprite.color);
+			Renderer2D::DrawQuad(trans.position, trans.scale, sprite.color);
 		}
 	}
 

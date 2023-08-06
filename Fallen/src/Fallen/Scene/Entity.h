@@ -18,6 +18,7 @@ class Entity {
 
 	template<typename T, typename... Args>
 	void AddComponent(Args&&... args) {
+		// should check if entity doesn't already have component
 		m_Components.push_back(std::make_shared<T>(std::forward<Args>(args)...));
 	}
 
