@@ -25,6 +25,8 @@ class Window {
         int getWidth() { return m_Width; }
         int getHeight() { return m_Height; }
 
+        void Resize(int width, int height);
+
     private:
         GLFWwindow* m_Window;
 

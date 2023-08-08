@@ -25,13 +25,14 @@ class Application {
 
     private:
         // layer stack needed
-        Window* m_Window;
+        static Window* m_Window;
         static bool m_Running;
         static LayerStack m_LayerStack;
         double m_LastFrameTime = 0.0f;
 
         //bool OnWindowClose(WindowCloseEvent& event);
         static bool OnWindowClose(WindowCloseEvent& event);
+        static bool Resize(WindowResizeEvent& event);
 
         static Application* s_Instance;
 };

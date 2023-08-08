@@ -2,6 +2,7 @@
 
 #include "Components.h"
 #include "Fallen/Time.h"
+#include "Fallen/Events/Event.h"
 
 #include <string>
 #include <vector>
@@ -15,6 +16,7 @@ class Entity {
 	virtual ~Entity() = default;
 
 	virtual void OnUpdate(TimeStep ts) {};
+	virtual void OnEvent(Event& event) {};
 
 	template<typename T, typename... Args>
 	void AddComponent(Args&&... args) {

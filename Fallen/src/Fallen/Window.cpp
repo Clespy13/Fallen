@@ -120,3 +120,11 @@ void Window::OnUpdate() {
     glfwPollEvents();
     glfwSwapBuffers(m_Window);
 }
+
+void Window::Resize(int width, int height)
+{
+    m_Width = width;
+    m_Height = height;
+
+    glViewport(0, 0, m_Width, m_Height);
+}

@@ -9,10 +9,16 @@
 #include <Fallen/Application.h>
 #include "Player.h"
 
+GameLayer* GameLayer::s_Instance = nullptr;
+
 GameLayer::GameLayer()
 {
+	s_Instance = this;
+
 	Renderer2D::Init();
-	m_Entities.push_back(new Player());
+
+	m_Scene = new Scene();
+	m_Scene->CreateEntity<Player>("Player");
 }
 
 GameLayer::~GameLayer()
@@ -37,12 +43,16 @@ void GameLayer::OnUpdate(TimeStep ts)
 
 	Renderer2D::Begin();
 
-	for (auto entity : m_Entities)
+	auto entities = m_Scene->GetAllEntities();
+	auto entity = entities->begin();
+	for (; entity != entities->end(); entity++)
 	{
-		entity->OnUpdate(ts);
-		if (entity->HasComponent<QuadSprite>()) {
-			Transform& trans = entity->GetComponent<Transform>();
-			QuadSprite& sprite = entity->GetComponent<QuadSprite>();
+		(*entity)->OnUpdate(ts);
+		if ((*entity)->HasComponent<QuadSprite>()) {
+			INFO("Entity: %s", (*entity)->GetComponent<Tag>().tag.c_str());
+			Transform& trans = (*entity)->GetComponent<Transform>();
+			QuadSprite& sprite = (*entity)->GetComponent<QuadSprite>();
+			INFO("Scale: %f", trans.scale.x);
 			Renderer2D::DrawQuad(trans.position, trans.scale, sprite.color);
 		}
 	}
@@ -53,5 +63,10 @@ void GameLayer::OnUpdate(TimeStep ts)
 void GameLayer::OnEvent(Event& event)
 {
 	EventDispatcher dispatcher(event);
-
+	auto entities = m_Scene->GetAllEntities();
+	int nbOfEntities = m_Scene->GetNumberOfEntities();
+	for (int i = 0; i != nbOfEntities; i++)
+	{
+		(*entities)[i]->OnEvent(event);
+	}
 }

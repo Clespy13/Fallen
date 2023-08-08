@@ -11,7 +11,7 @@
 
 struct QuadVertex {
 	glm::vec3 Position;
-	//glm::vec3 Size;
+	glm::vec3 Scale;
 	glm::vec4 Color;
 };
 
@@ -39,6 +39,7 @@ void Renderer2D::Init() {
 	data.QuadVertexBuffer = new VertexBuffer(data.MaxVertices * sizeof(QuadVertex));
 	data.QuadVertexBuffer->SetLayout({
 		{ShaderDataType::Float3, "a_Position"},
+		{ShaderDataType::Float3, "a_Scale"},
 		{ShaderDataType::Float4, "a_Color"},
 		//{ShaderDataType::Float2, "a_TexCoord"},
 	});
@@ -70,32 +71,6 @@ void Renderer2D::Init() {
 
 	data.TextureShader = new Shader("C:/Dev/Fallen/FeatureTester/assets/shaders/Default.vs", "C:/Dev/Fallen/FeatureTester/assets/shaders/Default.fs");
 	data.TextureShader->Use();
-
-	/*float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.0f,  0.5f, 0.0f
-	};
-
-	unsigned int VBO; // create VBO placement
-	glGenBuffers(1, &VBO); // generate VBO ID and assign it
-
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	transform = glm::rotate(transform, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-	transform = glm::scale(transform, glm::vec3(0.5, 0.5, 0.5));
-
-	m_ShaderProgram = new Shader("C:/Dev/Fallen/FeatureTester/assets/shaders/Default.vs", "C:/Dev/Fallen/FeatureTester/assets/shaders/Default.fs");
-	*/
-	//m_ShaderProgram->Use();
-	//m_ShaderProgram->SetMat4((std::string)"transform", transform);
 }
 
 void Renderer2D::Begin()
@@ -124,22 +99,27 @@ void Renderer2D::DrawQuad(glm::vec2 position, glm::vec2 size, glm::vec4 color)
 
 void Renderer2D::DrawQuad(glm::vec3 position, glm::vec3 size, glm::vec4 color)
 {
+	INFO("size x: %f", size.x);
 	data.QuadVertexBufferPtr->Position = position;
+	data.QuadVertexBufferPtr->Scale = size;
 	data.QuadVertexBufferPtr->Color = color;
 	//data.QuadVertexBufferPtr->TexCoord = { .0f, .0f };
 	data.QuadVertexBufferPtr++;
 
 	data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
+	data.QuadVertexBufferPtr->Scale = size;
 	data.QuadVertexBufferPtr->Color = color;
 	//data.QuadVertexBufferPtr->TexCoord = { 1.0f, .0f };
 	data.QuadVertexBufferPtr++;
 
-	data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
+		data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
+	data.QuadVertexBufferPtr->Scale = size;
 	data.QuadVertexBufferPtr->Color = color;
 	//data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
 	data.QuadVertexBufferPtr++;
 
 	data.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
+	data.QuadVertexBufferPtr->Scale = size;
 	data.QuadVertexBufferPtr->Color = color;
 	//data.QuadVertexBufferPtr->TexCoord = { .0f, 1.0f };
 	data.QuadVertexBufferPtr++;
